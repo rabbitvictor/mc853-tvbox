@@ -13,16 +13,18 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "nymcoy/armbian-bullseye-23.02"
+  # Additional configuration needed inside VM: https://stackoverflow.com/questions/49822594/vagrant-how-to-specify-the-disk-size
+  config.disksize.size = '30GB'
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--cableconnected1", "on", "--audio", "none"]
-    v.memory = 2048
+    v.memory = 10000
     v.cpus = 2
   end
   config.vm.network "forwarded_port", guest: 8500, host: 8500, auto_correct: true     # Consul UI
   config.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true     # Nomad UI
   config.vm.network "forwarded_port", guest: 9999, host: 9999, auto_correct: true     # Fabio Http Listener
   config.vm.network "forwarded_port", guest: 9998, host: 9998, auto_correct: true     # Fabio UI
-   config.vm.network "forwarded_port", guest: 5000, host: 5000, auto_correct: true
+  config.vm.network "forwarded_port", guest: 5000, host: 5000, auto_correct: true
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
