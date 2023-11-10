@@ -1,12 +1,9 @@
-- name: My first play
+- name: TV Box Configuration
   hosts:
     - virtual_machines
     - physical_machines
   roles:
     - common
+    - docker
     - consul
     - nomad
-#- name: My second play
-#  hosts: physical_machines
-#  roles:
-#    - common

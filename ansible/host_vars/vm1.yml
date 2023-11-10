@@ -1,5 +1,6 @@
-ansible_host: 192.168.56.126
+ansible_host: localhost
 ansible_user: root
+ansible_port: 2222
 ansible_password: vagrant
-host_ip: 192.168.56.126
+host_ip: 192.168.56.125
 nomad_ui_name: TV Box vm1

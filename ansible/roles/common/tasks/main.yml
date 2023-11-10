@@ -11,6 +11,14 @@
     state: directory
     mode: 0755
 
+- name: Install ca-certificates, curl, gnupg
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+
 - name: Get Hashicorp GPG key
   ansible.builtin.get_url:
     url: https://apt.releases.hashicorp.com/gpg
@@ -21,4 +29,16 @@
 - name: Add Hashicorp repository
   ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release | lower }} main"
+    state: present
+
+- name: Get Docker GPG key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: '0644'
+    force: true
+
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release | lower }} stable"
     state: present
