@@ -1,0 +1,27 @@
+---
+- name: Install Consul via apt
+  ansible.builtin.apt:
+    name: consul
+    state: present
+
+- name: Create Consul Configuration Directory
+  ansible.builtin.file:
+    path: /etc/consul.d
+    state: directory
+    mode: '0700'
+
+- name: Copy consul.hcl to Consul Configuration Directory
+  ansible.builtin.template:
+    src: consul.hcl.j2
+    dest: /etc/consul.d/consul.hcl
+
+- name: Copy consul.service to /etc/systemd/system
+  ansible.builtin.copy:
+    src: consul.service
+    dest: /etc/systemd/system/consul.service
+
+- name: Sets Consul as systemd service
+  ansible.builtin.systemd_service:
+    name: consul
+    enabled: true
+    state: started

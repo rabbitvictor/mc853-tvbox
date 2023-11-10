@@ -1,0 +1,27 @@
+---
+- name: Install Nomad via apt
+  ansible.builtin.apt:
+    name: nomad
+    state: present
+
+- name: Create Nomad Configuration Directory
+  ansible.builtin.file:
+    path: /etc/nomad.d
+    state: directory
+    mode: '0700'
+
+- name: Copy nomad.hcl to Nomad Configuration Directory
+  ansible.builtin.template:
+    src: nomad.hcl.j2
+    dest: /etc/nomad.d/nomad.hcl
+
+- name: Copy nomad.service to /etc/systemd/system
+  ansible.builtin.copy:
+    src: nomad.service
+    dest: /etc/systemd/system/nomad.service
+
+- name: Sets Nomad as systemd service
+  ansible.builtin.systemd_service:
+    name: nomad
+    enabled: true
+    state: started

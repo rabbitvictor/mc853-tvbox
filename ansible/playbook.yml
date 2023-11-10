@@ -1,0 +1,12 @@
+- name: My first play
+  hosts:
+    - virtual_machines
+    - physical_machines
+  roles:
+    - common
+    - consul
+    - nomad
+#- name: My second play
+#  hosts: physical_machines
+#  roles:
+#    - common
