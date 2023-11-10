@@ -23,12 +23,5 @@ job "redis" {
         ports = ["redis"]
       }
     }
-    
-    template {
-     data = <<EOH
-	 {{ with nomadVar "nomad/jobs/redis" }}{{ .REDIS_ENV_VAR }}{{ end }}
-	EOH
-     destination = local/test.yml
-   }
   }
 }
