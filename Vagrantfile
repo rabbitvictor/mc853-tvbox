@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
     v.memory = 10000
     v.cpus = 2
   end
-  config.vm.network "private_network", ip: "192.168.56.125"
+  config.vm.network "public_network", ip: "192.168.56.125"
   config.vm.network "forwarded_port", guest: 8500, host: 8500, auto_correct: true     # Consul UI
   config.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true     # Nomad UI
   config.vm.network "forwarded_port", guest: 9999, host: 9999, auto_correct: true     # Fabio Http Listener
